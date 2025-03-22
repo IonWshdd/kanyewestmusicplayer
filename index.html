@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audio Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+      padding: 50px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .player {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #song-title {
+      margin: 20px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">BULLY</a>
+  <a href="playlist.html">Yandhi</a>
+  <a href="about.html">About</a>
+</nav>
+
+<div class="player">
+  <h1>Unreleased Kanye West Music Player</h1>
+  <h2>BULLY</h2>
+  <div id="song-title">No song playing</div>
+  <audio id="audio" controls></audio>
+  <br/>
+  <button onclick="prevSong()">Previous</button>
+  <button onclick="nextSong()">Next</button>
+</div>
+
+<script>
+  const songs = [
+     { title: "PREACHER MAN", src: "PREACHER_MAN_V5.mp3" },
+    { title: "I CANT BEAR", src: "I_CANT_BEAR_V2.mp3" },
+    { title: "CLOSE TO YOU", src: "CLOSE_TO_YOU.mp3" },
+    { title: "CIRCLES", src: "CIRCLES_V2.mp3" },
+    { title: "BULLY", src: "BULLY_V3.mp3" },
+    { title: "CIRCLES", src: "CIRCLES_V2.mp3" },
+    { title: "SPANISH SONG", src: "SPANISH_SONG_V2.mp3" },
+    { title: "BEAUTY AND THE BEAST", src: "Beauty_The_Beast_V3.mp3" },
+    { title: "SHOWTIME", src: "SHOWTIME_V7.mp3" },
+    { title: "HIGHS AND LOWS", src: "HIGHS_AND_LOWS.mp3" },
+    { title: "MELROSE", src: "MELROSE_V8.mp3" }
+  ];
+
+  let currentSongIndex = 0;
+  const audio = document.getElementById('audio');
+  const songTitle = document.getElementById('song-title');
+
+  function loadSong(index) {
+    const song = songs[index];
+    audio.src = song.src;
+    songTitle.textContent = "Now Playing: " + song.title;
+    audio.play();
+  }
+
+  function nextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    loadSong(currentSongIndex);
+  }
+
+  function prevSong() {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    loadSong(currentSongIndex);
+  }
+
+  audio.addEventListener('ended', nextSong);
+
+  window.onload = () => {
+    loadSong(currentSongIndex);
+  };
+</script>
+
+</body>
+</html>

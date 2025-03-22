@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audio Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+      padding: 50px;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .player {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    #song-title {
+      margin: 20px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">BULLY</a>
+  <a href="playlist.html">Yandhi</a>
+  <a href="about.html">About</a>
+</nav>
+
+<div class="player">
+<h1>Unreleased Kanye West Music Player</h1>
+  <h2>Yandhi</h2>
+  <div id="song-title">No song playing</div>
+  <audio id="audio" controls></audio>
+  <br/>
+  <button onclick="prevSong()">Previous</button>
+  <button onclick="nextSong()">Next</button>
+</div>
+
+<script>
+  const songs = [
+     { title: "THE CALM/BEFORE THE STORM", src: "The Calm.mp3" },
+    { title: "XXX/THE STORM", src: "XXX_The_Storm_V15.mp3" },
+    { title: "HURRICANE", src: "Hurricane_V22.mp3" },
+    { title: "SKY CITY", src: "Sky_City_V19.mp3" },
+    { title: "THE GARDEN", src: "The_Garden_V6.mp3" },
+    { title: "BROTHERS", src: "Brothers_V11.mp3" },
+    { title: "HOME", src: "Home_V3.mp3" },
+    { title: "WE GOT LOVE", src: "We_Got_Love_V10.mp3" },
+    { title: "WE FREE", src: "We_Free.mp3" },
+    { title: "THE CHAKRA", src: "The_Chakra_V9.mp3" },
+    { title: "SPACEX/ALIEN", src: "Space_X_Alien_V18.mp3" },
+    { title: "LAW OF ATTRACTION", src: "Law Of Attraction.mp3" },
+    { title: "NEW BODY", src: "New_Body_V19.mp3" },
+    { title: "CASH TO BURN", src: "Cash To Burn.mp3" },
+    { title: "LAST NAME", src: "Last_Name_V3.mp3" },
+    { title: "I LOVE IT", src: "I_Love_it_V5.mp3" },
+    { title: "BYE BYE BABY", src: "Bye_Bye_Baby_V9.mp3" },
+    { title: "BROTHERS", src: "Brothers_V10.mp3" },
+  ];
+
+  let currentSongIndex = 0;
+  const audio = document.getElementById('audio');
+  const songTitle = document.getElementById('song-title');
+
+  function loadSong(index) {
+    const song = songs[index];
+    audio.src = song.src;
+    songTitle.textContent = "Now Playing: " + song.title;
+    audio.play();
+  }
+
+  function nextSong() {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    loadSong(currentSongIndex);
+  }
+
+  function prevSong() {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    loadSong(currentSongIndex);
+  }
+
+  audio.addEventListener('ended', nextSong);
+
+  window.onload = () => {
+    loadSong(currentSongIndex);
+  };
+</script>
+
+</body>
+</html>
